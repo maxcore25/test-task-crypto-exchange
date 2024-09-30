@@ -1,3 +1,5 @@
+import { ExchangeForm } from '@/components/ExchangeForm';
+
 export default function HomePage() {
   return (
     <main className='px-4'>
@@ -10,6 +12,7 @@ export default function HomePage() {
             Exchange fast and easy
           </div>
         </div>
+        <ExchangeForm />
       </div>
     </main>
   );
