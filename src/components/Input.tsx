@@ -9,7 +9,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <input
         type={type}
-        className={cn(inputDefaultStyles, className)}
+        className={cn(
+          inputDefaultStyles,
+          'w-full px-4 pb-[13px] pt-[14px] text-base font-normal leading-[23px] text-dark-gray',
+          className
+        )}
         ref={ref}
         {...props}
       />
