@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# test-task-crypto-exchange
 
-## Getting Started
+## ТЗ
 
-First, run the development server:
+Ссылка: https://telegra.ph/TZ-Frontend-dev-react-12-14
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Есть API: https://documenter.getpostman.com/view/8180765/SVfTPnM8?version=latest#intro
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+API key: в файле `.env.local`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Из этого API использовать только методы:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- List of available currencies;
+- Minimal exchange amount;
+- Estimated exchange amount.
 
-## Learn More
+Нужно реализовать виджет для создания обмена (только фронт, реакт):
 
-To learn more about Next.js, take a look at the following resources:
+1. Из API берется список всех валют (не использовать метод API get_all_pairs, делать виджет для всех возможных пар);
+2. В виджете можно выбрать левую и правую валюты;
+3. При выборе валют, выставлять в левом инпуте минимальную сумму обмена;
+4. В правый инпут считается и подставляется значение estimated для выбранных валют и суммы в левом инпуте;
+5. Если сумма меньше, чем минимальная, то в правый инпут пишется прочерк и выводится ошибка;
+6. Если для estimated или для min для выбранных валют API возвращает null, выводить ошибку this pair is disabled now.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Шрифт Arial
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Макет: https://www.figma.com/file/fzcnpN2Pm9YY8CIpWbP3NE/Frontend-Test?node-id=0%3A1
 
-## Deploy on Vercel
+Цвета:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- brand color #137E6E
+- dark gray #282828
+- light gray #A7A7A7
+- background #F4F4F4
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Состояния кнопок, адаптив, расстояния — на свое усмотрение.
+
+Поддержка — последние версии основных браузеров.
+
+Дополнительно (необязательно): реализация поиска.
