@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brandColor: 'var(--brand-color)',
-        darkGray: 'var(--dark-gray)',
-        lightGray: 'var(--light-gray)',
+        'brand-color': 'var(--brand-color)',
+        'dark-gray': 'var(--dark-gray)',
+        'light-gray': 'var(--light-gray)',
         background: 'var(--background)',
       },
     },
