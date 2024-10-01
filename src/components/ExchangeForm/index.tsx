@@ -21,6 +21,7 @@ export const ExchangeForm = () => {
     error,
     isToCurrencyLoading,
     address,
+    coins,
   } = useExchangeForm();
 
   return (
@@ -34,6 +35,7 @@ export const ExchangeForm = () => {
           selectedCurrency={fromCurrencySelect}
           onCurrencyChange={setFromCurrencySelect}
           isLoading={isFromCurrencyLoading}
+          coins={coins}
         />
         <SwapButton
           type='button'
@@ -48,8 +50,9 @@ export const ExchangeForm = () => {
           onAmountChange={setToCurrencyAmount}
           selectedCurrency={toCurrencySelect}
           onCurrencyChange={setToCurrencySelect}
-          isError={!!error}
           isLoading={isToCurrencyLoading}
+          coins={coins}
+          isError={!!error}
         />
       </div>
       <div className='grid gap-4 lg:flex lg:items-end lg:gap-8'>

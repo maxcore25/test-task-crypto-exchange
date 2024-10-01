@@ -15,6 +15,22 @@ export const useExchangeForm = () => {
   const [address, setAddress] = useState('');
   const [isFromCurrencyLoading, setIsFromCurrencyLoading] = useState(false);
   const [isToCurrencyLoading, setIsToCurrencyLoading] = useState(false);
+  const [coins, setCoins] = useState<Currency[]>([]);
+
+  useEffect(() => {
+    const fetchCoins = async () => {
+      try {
+        const res = await axiosInstance.get<Currency[]>(
+          '/currencies?active=true&fixedRate=true'
+        );
+        setCoins(res.data);
+      } catch (error) {
+        console.error('Error fetching coins:', error);
+      }
+    };
+
+    fetchCoins();
+  }, []);
 
   useEffect(() => {
     if (fromCurrencyAmount < fromCurrencyMinAmount) {
@@ -108,5 +124,6 @@ Address: ${address}
     error,
     isToCurrencyLoading,
     address,
+    coins,
   };
 };
