@@ -158,19 +158,24 @@ CurrencySelectCoin.displayName = 'CurrencySelectCoin';
 
 export type CurrencySelectPopoverProps = HTMLAttributes<HTMLUListElement>;
 
-export const CurrencySelectPopover = ({
-  children,
-  ...props
-}: CurrencySelectPopoverProps) => {
+export const CurrencySelectPopover = forwardRef<
+  HTMLUListElement,
+  CurrencySelectPopoverProps
+>(({ children, className, ...props }, ref) => {
   return (
     <ul
-      className='absolute z-10 max-h-[300px] w-full overflow-hidden overflow-y-auto rounded-bl-[5px] rounded-br-[5px] border border-[#c1d9e5] border-t-transparent bg-[#f6f7f8]'
+      className={cn(
+        'absolute z-10 max-h-[300px] w-full overflow-hidden overflow-y-auto rounded-bl-[5px] rounded-br-[5px] border border-[#c1d9e5] border-t-transparent bg-[#f6f7f8]',
+        className
+      )}
+      ref={ref}
       {...props}
     >
       {children}
     </ul>
   );
-};
+});
+CurrencySelectPopover.displayName = 'CurrencySelectPopover';
 
 export type CurrencySelectItemProps = LiHTMLAttributes<HTMLLIElement> & {
   coin: Currency;
