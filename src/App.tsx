@@ -1,35 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ExchangeForm } from '@/components/ExchangeForm';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main className='px-4'>
+      <div className='mx-auto mt-16 max-w-[960px] lg:mt-[220px]'>
+        <div className='mb-[60px] grid gap-[14px] lg:gap-4'>
+          <h1 className='text-[40px] font-light leading-[48px] lg:text-[50px] lg:leading-[60px]'>
+            Crypto Exchange
+          </h1>
+          <div className='text-xl font-normal leading-tight'>
+            Exchange fast and easy
+          </div>
+        </div>
+        <ExchangeForm />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </main>
+  );
 }
 
-export default App
+export default App;
