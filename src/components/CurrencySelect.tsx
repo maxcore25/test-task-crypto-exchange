@@ -1,30 +1,30 @@
 import { ArrowDown } from './ArrowDown';
 import { useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { testCoins } from '@/temp';
+import { btcCoin, testCoins } from '@/temp';
 import { useClickOutside } from '@/hooks';
+import { Currency } from '@/types';
 
 export type CurrencySelectProps = {
   id?: string;
   name?: string;
-  defaultCurrency?: string;
+  defaultCurrency?: Currency;
 };
 
 export const CurrencySelect = ({
   id,
   name,
-  defaultCurrency = 'btc',
+  defaultCurrency = btcCoin,
 }: CurrencySelectProps) => {
   const [amount, setAmount] = useState('');
   const [search, setSearch] = useState('');
-  const [selectedCurrency, setSelectedCurrency] = useState(defaultCurrency);
+  const [selectedCurrency, setSelectedCurrency] =
+    useState<Currency>(defaultCurrency);
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const selectRef = useClickOutside<HTMLInputElement>(() => {
     setIsOpen(false);
   });
-
-  console.log(selectedCurrency);
 
   const filteredCoins = testCoins.filter(
     coin =>
@@ -45,8 +45,8 @@ export const CurrencySelect = ({
     inputRef.current?.focus();
   };
 
-  const handleSelect = (ticker: string) => {
-    setSelectedCurrency(ticker);
+  const handleSelect = (currency: Currency) => {
+    setSelectedCurrency(currency);
     setIsOpen(false);
   };
 
@@ -77,13 +77,13 @@ export const CurrencySelect = ({
             className='relative flex w-[150px] shrink-0 cursor-pointer items-center py-[13px] pl-[34px] pr-2 before:absolute before:left-0 before:h-[calc(100%-20px)] before:w-[1px] before:bg-[#e3ebef] before:content-[""]'
           >
             <img
-              src={testCoins[0].image}
-              alt={testCoins[0].name}
+              src={selectedCurrency.image}
+              alt={selectedCurrency.name}
               width={20}
               height={20}
             />
             <div className='ml-3 mr-[30px] text-base font-normal leading-[23px]'>
-              {testCoins[0].ticker.toUpperCase()}
+              {selectedCurrency.ticker.toUpperCase()}
             </div>
             <ArrowDown />
           </div>
@@ -97,7 +97,7 @@ export const CurrencySelect = ({
               key={coin.ticker}
               className='flex cursor-pointer items-center px-4 py-3 hover:bg-[#eaf1f7]'
               title={coin.name}
-              onClick={() => handleSelect(coin.ticker)}
+              onClick={() => handleSelect(coin)}
             >
               <img src={coin.image} alt={coin.name} width={20} height={20} />
               <div className='ml-3 mr-4 text-base font-normal uppercase leading-[23px] text-dark-gray'>
