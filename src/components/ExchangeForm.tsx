@@ -92,6 +92,7 @@ Address: ${address}
           onCurrencyChange={setFromCurrencySelect}
         />
         <SwapButton
+          type='button'
           onClick={handleSwap}
           title='Swap currencies'
           className='rotate-90 self-end lg:rotate-0 lg:self-auto'
