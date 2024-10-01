@@ -74,6 +74,11 @@ export const ExchangeForm = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    alert(`
+From: ${fromCurrencyAmount} ${fromCurrencySelect.ticker.toUpperCase()}
+To: ${toCurrencyAmount} ${toCurrencySelect.ticker.toUpperCase()}
+Address: ${address}
+      `);
   };
 
   return (
