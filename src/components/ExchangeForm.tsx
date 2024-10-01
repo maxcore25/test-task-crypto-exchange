@@ -32,6 +32,7 @@ export const ExchangeForm = () => {
             `/exchange-amount/${fromCurrencyAmount}/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
           );
           console.log(res.data);
+          setError(null);
           setToCurrencyAmount(res.data.estimatedAmount);
         }
       } catch (err: unknown) {
@@ -51,6 +52,7 @@ export const ExchangeForm = () => {
         const res = await axiosInstance.get<MinAmount>(
           `/min-amount/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
         );
+        setError(null);
         setFromCurrencyAmount(res.data.minAmount);
         setFromCurrencyMinAmount(res.data.minAmount);
       } catch (error) {
