@@ -82,8 +82,9 @@ export const ExchangeForm = () => {
           onCurrencyChange={setFromCurrencySelect}
         />
         <SwapButton
-          className='rotate-90 self-end lg:rotate-0 lg:self-auto'
           onClick={handleSwap}
+          title='Swap currencies'
+          className='rotate-90 self-end lg:rotate-0 lg:self-auto'
         />
         <CurrencySelect
           id='to'
