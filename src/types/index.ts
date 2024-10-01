@@ -20,6 +20,11 @@ export type EstimatedAmount = {
   warningMessage: string | null;
 };
 
+export type ErrorMessage = {
+  error: string;
+  message: string;
+};
+
 export type ExchangeState = { fromCurrency: string; toCurrency: string };
 
 export type ExchangeActions = {
