@@ -14,6 +14,7 @@ export type CurrencySelectProps = {
   coins?: Currency[];
   minAmount?: number | string;
   isError?: boolean;
+  isLoading?: boolean;
 };
 
 export const CurrencySelect = ({
@@ -25,6 +26,7 @@ export const CurrencySelect = ({
   coins = testCoins,
   minAmount,
   isError,
+  isLoading,
 }: CurrencySelectProps) => {
   const [amount, setAmount] = useState(String(minAmount));
   const [search, setSearch] = useState('');
@@ -66,7 +68,12 @@ export const CurrencySelect = ({
   };
 
   return (
-    <div ref={selectRef} className='relative w-full'>
+    <div
+      ref={selectRef}
+      className={cn('relative w-full', {
+        'pointer-events-none opacity-50': isLoading,
+      })}
+    >
       <div
         className={cn(
           'flex rounded-[5px] border border-[#e3ebef] bg-[#f6f7f8]',
