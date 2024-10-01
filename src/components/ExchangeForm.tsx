@@ -4,15 +4,24 @@ import { CurrencySelect } from './CurrencySelect';
 import { Input } from './Input';
 import { SwapButton } from './SwapButton';
 import { btcCoin, ethCoin } from '@/temp';
-import { Currency, EstimatedAmount, MinAmount } from '@/types';
+import { Currency, ErrorMessage, EstimatedAmount, MinAmount } from '@/types';
 import { axiosInstance } from '@/api';
+import { AxiosError } from 'axios';
 
 export const ExchangeForm = () => {
   const [fromCurrencySelect, setFromCurrencySelect] =
     useState<Currency>(btcCoin);
   const [toCurrencySelect, setToCurrencySelect] = useState<Currency>(ethCoin);
   const [fromCurrencyAmount, setFromCurrencyAmount] = useState(0);
-  const [toCurrencyAmount, setToCurrencyAmount] = useState(0);
+  const [fromCurrencyMinAmount, setFromCurrencyMinAmount] = useState(0);
+  const [toCurrencyAmount, setToCurrencyAmount] = useState<number | string>(0);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (fromCurrencyAmount < fromCurrencyMinAmount) {
+      setToCurrencyAmount('-');
+    }
+  }, [fromCurrencyAmount, fromCurrencyMinAmount]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,11 +33,14 @@ export const ExchangeForm = () => {
           console.log(res.data);
           setToCurrencyAmount(res.data.estimatedAmount);
         }
-      } catch (error) {
+      } catch (err: unknown) {
+        const error = err as AxiosError<ErrorMessage>;
         console.error('Error fetching estimated exchange amount:', error);
+        if (error.response) setError(error.response?.data.message);
       }
     };
 
+    setError(null);
     fetchData();
   }, [fromCurrencyAmount, fromCurrencySelect, toCurrencySelect]);
 
@@ -39,6 +51,7 @@ export const ExchangeForm = () => {
           `/min-amount/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
         );
         setFromCurrencyAmount(res.data.minAmount);
+        setFromCurrencyMinAmount(res.data.minAmount);
       } catch (error) {
         console.error('Error fetching minimum amount:', error);
       }
@@ -70,6 +83,7 @@ export const ExchangeForm = () => {
           onAmountChange={setToCurrencyAmount}
           selectedCurrency={toCurrencySelect}
           onCurrencyChange={setToCurrencySelect}
+          isError={!!error}
         />
       </div>
       <div className='grid gap-4 lg:flex lg:items-end lg:gap-8'>
@@ -82,7 +96,14 @@ export const ExchangeForm = () => {
           </label>
           <Input type='text' name='address' id='address' />
         </div>
-        <Button type='submit'>Exchange</Button>
+        <div className='relative'>
+          <Button type='submit' className='w-[205px]'>
+            Exchange
+          </Button>
+          <div className='mt-2 w-full text-center text-[#e03f3f] lg:absolute lg:left-1/2 lg:-translate-x-1/2'>
+            {error}
+          </div>
+        </div>
       </div>
     </form>
   );
