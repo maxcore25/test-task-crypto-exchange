@@ -14,6 +14,12 @@ export type MinAmount = {
   minAmount: number;
 };
 
+export type EstimatedAmount = {
+  estimatedAmount: number;
+  transactionSpeedForecast: string;
+  warningMessage: string | null;
+};
+
 export type ExchangeState = { fromCurrency: string; toCurrency: string };
 
 export type ExchangeActions = {
