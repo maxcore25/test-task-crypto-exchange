@@ -33,10 +33,10 @@ export const useExchangeForm = () => {
   }, []);
 
   useEffect(() => {
-    if (fromCurrencyAmount < fromCurrencyMinAmount) {
+    if (!!error || fromCurrencyAmount < fromCurrencyMinAmount) {
       setToCurrencyAmount('-');
     }
-  }, [fromCurrencyAmount, fromCurrencyMinAmount]);
+  }, [fromCurrencyAmount, fromCurrencyMinAmount, error]);
 
   useEffect(() => {
     const fetchExchangeAmount = async () => {
