@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { testCoins } from '@/temp';
 import { Currency } from '@/types';
 import { useCurrencySelect } from './CurrencySelect.hooks';
-import { CrossIcon } from '../CrossIcon';
+import { CloseButton } from '../CloseButton';
 
 export type CurrencySelectProps = {
   selectedCurrency: Currency;
@@ -78,7 +78,9 @@ export const CurrencySelect = ({
           type={isOpen || isError ? 'text' : 'number'}
           className='w-full bg-transparent px-4 pb-[13px] pt-[14px] text-base font-normal leading-[23px] text-dark-gray outline-none'
         />
-        {isOpen && <CrossIcon />}
+        {isOpen && (
+          <CloseButton className='absolute right-4 top-1/2 -translate-y-1/2' />
+        )}
         {!isOpen && (
           <CurrencySelectCoin
             selectedCurrency={selectedCurrency}
