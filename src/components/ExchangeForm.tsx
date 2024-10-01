@@ -31,7 +31,6 @@ export const ExchangeForm = () => {
           const res = await axiosInstance.get<EstimatedAmount>(
             `/exchange-amount/${fromCurrencyAmount}/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
           );
-          console.log(res.data);
           setError(null);
           setToCurrencyAmount(res.data.estimatedAmount);
         }
