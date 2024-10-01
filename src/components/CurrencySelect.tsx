@@ -8,12 +8,14 @@ import { Currency } from '@/types';
 export type CurrencySelectProps = {
   id?: string;
   name?: string;
+  coins?: Currency[];
   defaultCurrency?: Currency;
 };
 
 export const CurrencySelect = ({
   id,
   name,
+  coins = testCoins,
   defaultCurrency = btcCoin,
 }: CurrencySelectProps) => {
   const [amount, setAmount] = useState('');
@@ -27,7 +29,7 @@ export const CurrencySelect = ({
     setSearch('');
   });
 
-  const filteredCoins = testCoins.filter(
+  const filteredCoins = coins.filter(
     coin =>
       coin.name.toLowerCase().includes(search.toLowerCase()) ||
       coin.ticker.toLowerCase().includes(search.toLowerCase())
