@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { Button } from './Button';
-import { CurrencySelect } from './CurrencySelect';
-import { Input } from './Input';
-import { SwapButton } from './SwapButton';
+import { Button } from '../Button';
+import { CurrencySelect } from '../CurrencySelect';
+import { Input } from '../Input';
+import { SwapButton } from '../SwapButton';
 import { btcCoin, ethCoin } from '@/temp';
 import { Currency, ErrorMessage, EstimatedAmount, MinAmount } from '@/types';
 import { axiosInstance } from '@/api';
