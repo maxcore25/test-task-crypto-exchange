@@ -8,6 +8,7 @@ import { Currency } from '@/types';
 export type CurrencySelectProps = {
   selectedCurrency: Currency;
   onCurrencyChange: (currency: Currency) => void;
+  onAmountChange: (amount: number) => void;
   id?: string;
   name?: string;
   coins?: Currency[];
@@ -17,6 +18,7 @@ export type CurrencySelectProps = {
 export const CurrencySelect = ({
   selectedCurrency,
   onCurrencyChange,
+  onAmountChange,
   id,
   name,
   coins = testCoins,
@@ -33,7 +35,7 @@ export const CurrencySelect = ({
 
   useEffect(() => {
     setAmount(String(minAmount));
-  }, [minAmount]);
+  }, [minAmount, selectedCurrency]);
 
   const filteredCoins = coins.filter(
     coin =>
@@ -44,6 +46,7 @@ export const CurrencySelect = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!isOpen) {
       setAmount(e.target.value);
+      onAmountChange(Number.parseFloat(e.target.value));
     } else {
       setSearch(e.target.value);
     }
