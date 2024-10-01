@@ -1,17 +1,14 @@
-import { ArrowDown } from './ArrowDown';
+import { ArrowDown } from '../ArrowDown';
 import {
   ButtonHTMLAttributes,
   forwardRef,
   HTMLAttributes,
   LiHTMLAttributes,
-  useEffect,
-  useRef,
-  useState,
 } from 'react';
 import { cn } from '@/lib/utils';
 import { testCoins } from '@/temp';
-import { useClickOutside } from '@/hooks';
 import { Currency } from '@/types';
+import { useCurrencySelect } from './CurrencySelect.hooks';
 
 export type CurrencySelectProps = {
   selectedCurrency: Currency;
@@ -36,44 +33,24 @@ export const CurrencySelect = ({
   isError,
   isLoading,
 }: CurrencySelectProps) => {
-  const [amount, setAmount] = useState(String(minAmount));
-  const [search, setSearch] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const selectRef = useClickOutside<HTMLInputElement>(() => {
-    setIsOpen(false);
-    setSearch('');
+  const {
+    handleChange,
+    handleClick,
+    handleSelect,
+    selectRef,
+    isOpen,
+    amount,
+    search,
+    inputRef,
+    filteredCoins,
+  } = useCurrencySelect({
+    selectedCurrency,
+    onCurrencyChange,
+    onAmountChange,
+    coins,
+    minAmount,
+    isError,
   });
-
-  useEffect(() => {
-    if (isError) setAmount('-');
-    setAmount(String(minAmount));
-  }, [minAmount, selectedCurrency, isError]);
-
-  const filteredCoins = coins.filter(
-    coin =>
-      coin.name.toLowerCase().includes(search.toLowerCase()) ||
-      coin.ticker.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isOpen && !isError) {
-      setAmount(e.target.value);
-      onAmountChange(Number.parseFloat(e.target.value));
-    } else {
-      setSearch(e.target.value);
-    }
-  };
-
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-    inputRef.current?.focus();
-  };
-
-  const handleSelect = (currency: Currency) => {
-    onCurrencyChange(currency);
-    setIsOpen(false);
-  };
 
   return (
     <div
@@ -110,7 +87,7 @@ export const CurrencySelect = ({
 
       {isOpen && (
         <CurrencySelectPopover>
-          {filteredCoins.map(coin => (
+          {filteredCoins?.map(coin => (
             <CurrencySelectItem
               key={coin.ticker}
               coin={coin}
