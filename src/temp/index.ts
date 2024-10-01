@@ -1,3 +1,27 @@
+export const btcCoin = {
+  ticker: 'btc',
+  name: 'Bitcoin',
+  image: 'https://content-api.changenow.io/uploads/btc_1_527dc9ec3c.svg',
+  hasExternalId: false,
+  isExtraIdSupported: false,
+  isFiat: false,
+  featured: true,
+  isStable: false,
+  supportsFixedRate: true,
+};
+
+export const ethCoin = {
+  ticker: 'eth',
+  name: 'Ethereum',
+  image: 'https://content-api.changenow.io/uploads/eth_f4ebb54ec0.svg',
+  hasExternalId: false,
+  isExtraIdSupported: false,
+  isFiat: false,
+  featured: true,
+  isStable: false,
+  supportsFixedRate: true,
+};
+
 export const testCoins = [
   {
     ticker: 'btc',
