@@ -1,5 +1,7 @@
 import { ArrowDown } from './ArrowDown';
 import {
+  ButtonHTMLAttributes,
+  forwardRef,
   HTMLAttributes,
   LiHTMLAttributes,
   useEffect,
@@ -99,21 +101,10 @@ export const CurrencySelect = ({
           className='w-full bg-transparent px-4 pb-[13px] pt-[14px] text-base font-normal leading-[23px] text-dark-gray outline-none'
         />
         {!isOpen && (
-          <button
+          <CurrencySelectCoin
+            selectedCurrency={selectedCurrency}
             onClick={handleClick}
-            className='relative flex w-[150px] shrink-0 items-center py-[13px] pl-[34px] pr-2 before:absolute before:left-0 before:h-[calc(100%-20px)] before:w-[1px] before:bg-[#e3ebef] before:content-[""]'
-          >
-            <img
-              src={selectedCurrency.image}
-              alt={selectedCurrency.name}
-              width={20}
-              height={20}
-            />
-            <div className='ml-3 mr-[30px] text-base font-normal leading-[23px]'>
-              {selectedCurrency.ticker.toUpperCase()}
-            </div>
-            <ArrowDown />
-          </button>
+          />
         )}
       </div>
 
@@ -131,6 +122,39 @@ export const CurrencySelect = ({
     </div>
   );
 };
+
+export type CurrencySelectCoinProps =
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    selectedCurrency: Currency;
+  };
+
+export const CurrencySelectCoin = forwardRef<
+  HTMLButtonElement,
+  CurrencySelectCoinProps
+>(({ selectedCurrency, className, ...props }, ref) => {
+  return (
+    <button
+      className={cn(
+        'relative flex shrink-0 items-center py-[13px] pl-[34px] pr-2 before:absolute before:left-0 before:h-[calc(100%-20px)] before:w-[1px] before:bg-[#e3ebef] before:content-[""]',
+        className
+      )}
+      ref={ref}
+      {...props}
+    >
+      <img
+        src={selectedCurrency.image}
+        alt={selectedCurrency.name}
+        width={20}
+        height={20}
+      />
+      <div className='ml-3 mr-[30px] text-base font-normal leading-[23px]'>
+        {selectedCurrency.ticker.toUpperCase()}
+      </div>
+      <ArrowDown />
+    </button>
+  );
+});
+CurrencySelectCoin.displayName = 'CurrencySelectCoin';
 
 export type CurrencySelectPopoverProps = HTMLAttributes<HTMLUListElement>;
 
