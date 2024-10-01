@@ -24,6 +24,7 @@ export const CurrencySelect = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const selectRef = useClickOutside<HTMLInputElement>(() => {
     setIsOpen(false);
+    setSearch('');
   });
 
   const filteredCoins = testCoins.filter(
