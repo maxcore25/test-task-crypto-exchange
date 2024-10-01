@@ -17,6 +17,8 @@ export const ExchangeForm = () => {
   const [toCurrencyAmount, setToCurrencyAmount] = useState<number | string>(0);
   const [error, setError] = useState<string | null>(null);
   const [address, setAddress] = useState('');
+  const [isFromCurrencyLoading, setIsFromCurrencyLoading] = useState(false);
+  const [isToCurrencyLoading, setIsToCurrencyLoading] = useState(false);
 
   useEffect(() => {
     if (fromCurrencyAmount < fromCurrencyMinAmount) {
@@ -28,15 +30,22 @@ export const ExchangeForm = () => {
     const fetchExchangeAmount = async () => {
       try {
         if (fromCurrencyAmount <= 0) return;
+
+        setIsToCurrencyLoading(true);
+
         const res = await axiosInstance.get<EstimatedAmount>(
           `/exchange-amount/${fromCurrencyAmount}/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
         );
+
         setError(null);
         setToCurrencyAmount(res.data.estimatedAmount);
       } catch (err: unknown) {
         const error = err as AxiosError<ErrorMessage>;
         console.error('Error fetching estimated exchange amount:', error);
+
         if (error.response) setError(error.response?.data.message);
+      } finally {
+        setIsToCurrencyLoading(false);
       }
     };
 
@@ -47,14 +56,21 @@ export const ExchangeForm = () => {
   useEffect(() => {
     const fetchMinAmount = async () => {
       try {
+        setIsFromCurrencyLoading(true);
+        setIsToCurrencyLoading(true);
+
         const res = await axiosInstance.get<MinAmount>(
           `/min-amount/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
         );
+
         setError(null);
         setFromCurrencyAmount(res.data.minAmount);
         setFromCurrencyMinAmount(res.data.minAmount);
       } catch (error) {
         console.error('Error fetching minimum amount:', error);
+      } finally {
+        setIsFromCurrencyLoading(false);
+        setIsToCurrencyLoading(false);
       }
     };
 
@@ -90,6 +106,7 @@ Address: ${address}
           onAmountChange={setFromCurrencyAmount}
           selectedCurrency={fromCurrencySelect}
           onCurrencyChange={setFromCurrencySelect}
+          isLoading={isFromCurrencyLoading}
         />
         <SwapButton
           type='button'
@@ -105,6 +122,7 @@ Address: ${address}
           selectedCurrency={toCurrencySelect}
           onCurrencyChange={setToCurrencySelect}
           isError={!!error}
+          isLoading={isToCurrencyLoading}
         />
       </div>
       <div className='grid gap-4 lg:flex lg:items-end lg:gap-8'>
