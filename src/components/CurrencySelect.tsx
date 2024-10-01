@@ -4,10 +4,20 @@ import { cn } from '@/lib/utils';
 import { testCoins } from '@/temp';
 import { useClickOutside } from '@/hooks';
 
-export const CurrencySelect = () => {
+export type CurrencySelectProps = {
+  id?: string;
+  name?: string;
+  defaultCurrency?: string;
+};
+
+export const CurrencySelect = ({
+  id,
+  name,
+  defaultCurrency = 'btc',
+}: CurrencySelectProps) => {
   const [amount, setAmount] = useState('');
   const [search, setSearch] = useState('');
-  const [selectedCurrency, setSelectedCurrency] = useState('btc');
+  const [selectedCurrency, setSelectedCurrency] = useState(defaultCurrency);
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const selectRef = useClickOutside<HTMLInputElement>(() => {
@@ -52,12 +62,13 @@ export const CurrencySelect = () => {
         )}
       >
         <input
+          id={id}
+          name={name}
           value={!isOpen ? amount : search}
           onChange={handleChange}
           ref={inputRef}
           type={isOpen ? 'text' : 'number'}
           min={0}
-          name='from'
           className='w-full bg-transparent px-4 pb-[13px] pt-[14px] text-base font-normal leading-[23px] text-dark-gray outline-none'
         />
         {!isOpen && (
