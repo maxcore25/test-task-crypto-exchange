@@ -86,9 +86,9 @@ export const CurrencySelect = ({
           className='w-full bg-transparent px-4 pb-[13px] pt-[14px] text-base font-normal leading-[23px] text-dark-gray outline-none'
         />
         {!isOpen && (
-          <div
+          <button
             onClick={handleClick}
-            className='relative flex w-[150px] shrink-0 cursor-pointer items-center py-[13px] pl-[34px] pr-2 before:absolute before:left-0 before:h-[calc(100%-20px)] before:w-[1px] before:bg-[#e3ebef] before:content-[""]'
+            className='relative flex w-[150px] shrink-0 items-center py-[13px] pl-[34px] pr-2 before:absolute before:left-0 before:h-[calc(100%-20px)] before:w-[1px] before:bg-[#e3ebef] before:content-[""]'
           >
             <img
               src={selectedCurrency.image}
@@ -100,7 +100,7 @@ export const CurrencySelect = ({
               {selectedCurrency.ticker.toUpperCase()}
             </div>
             <ArrowDown />
-          </div>
+          </button>
         )}
       </div>
 
