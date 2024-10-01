@@ -205,3 +205,4 @@ export const CurrencySelectItem = forwardRef<
     </li>
   );
 });
+CurrencySelectItem.displayName = 'CurrencySelectItem';
