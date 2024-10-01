@@ -1,4 +1,4 @@
-import { ArrowDown } from '../ArrowDown';
+import { ArrowDownIcon } from '../ArrowDownIcon';
 import {
   ButtonHTMLAttributes,
   forwardRef,
@@ -129,7 +129,7 @@ export const CurrencySelectCoin = forwardRef<
       <div className='ml-3 mr-[30px] text-base font-normal leading-[23px]'>
         {selectedCurrency.ticker.toUpperCase()}
       </div>
-      <ArrowDown />
+      <ArrowDownIcon />
     </button>
   );
 });
