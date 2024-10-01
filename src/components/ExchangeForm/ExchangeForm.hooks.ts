@@ -3,6 +3,7 @@ import { btcCoin, ethCoin } from '@/temp';
 import { Currency, ErrorMessage, EstimatedAmount, MinAmount } from '@/types';
 import { axiosInstance } from '@/api';
 import { AxiosError } from 'axios';
+import { useDebounce } from '@/hooks';
 
 export const useExchangeForm = () => {
   const [fromCurrencySelect, setFromCurrencySelect] =
@@ -16,6 +17,7 @@ export const useExchangeForm = () => {
   const [isFromCurrencyLoading, setIsFromCurrencyLoading] = useState(false);
   const [isToCurrencyLoading, setIsToCurrencyLoading] = useState(false);
   const [coins, setCoins] = useState<Currency[]>([]);
+  const debouncedFromCurrencyAmount = useDebounce(fromCurrencyAmount, 500);
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -41,12 +43,12 @@ export const useExchangeForm = () => {
   useEffect(() => {
     const fetchExchangeAmount = async () => {
       try {
-        if (fromCurrencyAmount <= 0) return;
+        if (debouncedFromCurrencyAmount <= 0) return;
 
         setIsToCurrencyLoading(true);
 
         const res = await axiosInstance.get<EstimatedAmount>(
-          `/exchange-amount/${fromCurrencyAmount}/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
+          `/exchange-amount/${debouncedFromCurrencyAmount}/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
         );
 
         setError(null);
@@ -63,7 +65,12 @@ export const useExchangeForm = () => {
 
     setError(null);
     fetchExchangeAmount();
-  }, [fromCurrencyAmount, fromCurrencySelect, toCurrencySelect]);
+  }, [
+    fromCurrencyAmount,
+    fromCurrencySelect,
+    toCurrencySelect,
+    debouncedFromCurrencyAmount,
+  ]);
 
   useEffect(() => {
     const fetchMinAmount = async () => {
