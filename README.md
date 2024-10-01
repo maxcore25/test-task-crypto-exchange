@@ -1,5 +1,13 @@
 # test-task-crypto-exchange
 
+## Инструкция
+
+1. Скопируйте файл `.env.example` и переименуйте в `.env.local`
+1. Перейдите по ссылке ТЗ: https://telegra.ph/TZ-Frontend-dev-react-12-14
+1. Скопируйте API key
+1. Вставьте скопированный API key в переменную `VITE_API_KEY` в файле `.env.local`
+1. Запустите проект командой `pnpm dev`
+
 ## ТЗ
 
 Ссылка: https://telegra.ph/TZ-Frontend-dev-react-12-14
