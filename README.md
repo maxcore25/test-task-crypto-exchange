@@ -1,5 +1,7 @@
 # test-task-crypto-exchange
 
+![](/docs/main.png)
+
 ## Инструкция
 
 1. Скопируйте файл `.env.example` и переименуйте в `.env.local`
