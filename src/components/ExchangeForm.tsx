@@ -22,10 +22,14 @@ export const ExchangeForm = () => {
         toCurrencySelect.ticker
       );
 
-      const res = await axiosInstance.get<MinAmount>(
-        `/min-amount/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
-      );
-      setFromCurrencyAmount(res.data.minAmount);
+      try {
+        const res = await axiosInstance.get<MinAmount>(
+          `/min-amount/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
+        );
+        setFromCurrencyAmount(res.data.minAmount);
+      } catch (error) {
+        console.error('Error fetching minimum amount:', error);
+      }
     };
 
     fetchData();
