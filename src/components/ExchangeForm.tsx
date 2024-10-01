@@ -4,7 +4,7 @@ import { CurrencySelect } from './CurrencySelect';
 import { Input } from './Input';
 import { SwapButton } from './SwapButton';
 import { btcCoin, ethCoin } from '@/temp';
-import { Currency, MinAmount } from '@/types';
+import { Currency, EstimatedAmount, MinAmount } from '@/types';
 import { axiosInstance } from '@/api';
 
 export const ExchangeForm = () => {
@@ -12,7 +12,25 @@ export const ExchangeForm = () => {
     useState<Currency>(btcCoin);
   const [toCurrencySelect, setToCurrencySelect] = useState<Currency>(ethCoin);
   const [fromCurrencyAmount, setFromCurrencyAmount] = useState(0);
-  // const [toCurrencyAmount, setToCurrencyAmount] = useState(0)
+  const [toCurrencyAmount, setToCurrencyAmount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (fromCurrencyAmount > 0) {
+          const res = await axiosInstance.get<EstimatedAmount>(
+            `/exchange-amount/${fromCurrencyAmount}/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
+          );
+          console.log(res.data);
+          setToCurrencyAmount(res.data.estimatedAmount);
+        }
+      } catch (error) {
+        console.error('Error fetching estimated exchange amount:', error);
+      }
+    };
+
+    fetchData();
+  }, [fromCurrencyAmount, fromCurrencySelect, toCurrencySelect]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +64,7 @@ export const ExchangeForm = () => {
           id='from'
           name='from'
           minAmount={fromCurrencyAmount}
+          onAmountChange={setFromCurrencyAmount}
           selectedCurrency={fromCurrencySelect}
           onCurrencyChange={setFromCurrencySelect}
         />
@@ -53,6 +72,8 @@ export const ExchangeForm = () => {
         <CurrencySelect
           id='to'
           name='to'
+          minAmount={toCurrencyAmount}
+          onAmountChange={setToCurrencyAmount}
           selectedCurrency={toCurrencySelect}
           onCurrencyChange={setToCurrencySelect}
         />
