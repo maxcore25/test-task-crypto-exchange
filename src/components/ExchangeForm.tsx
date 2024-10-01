@@ -115,6 +115,7 @@ export const ExchangeForm = () => {
             id='address'
             value={address}
             onChange={handleChangeAddress}
+            required
           />
         </div>
         <div className='relative'>
