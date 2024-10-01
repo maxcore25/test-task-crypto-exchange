@@ -25,15 +25,14 @@ export const ExchangeForm = () => {
   }, [fromCurrencyAmount, fromCurrencyMinAmount]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchExchangeAmount = async () => {
       try {
-        if (fromCurrencyAmount > 0) {
-          const res = await axiosInstance.get<EstimatedAmount>(
-            `/exchange-amount/${fromCurrencyAmount}/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
-          );
-          setError(null);
-          setToCurrencyAmount(res.data.estimatedAmount);
-        }
+        if (fromCurrencyAmount <= 0) return;
+        const res = await axiosInstance.get<EstimatedAmount>(
+          `/exchange-amount/${fromCurrencyAmount}/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
+        );
+        setError(null);
+        setToCurrencyAmount(res.data.estimatedAmount);
       } catch (err: unknown) {
         const error = err as AxiosError<ErrorMessage>;
         console.error('Error fetching estimated exchange amount:', error);
@@ -42,11 +41,11 @@ export const ExchangeForm = () => {
     };
 
     setError(null);
-    fetchData();
+    fetchExchangeAmount();
   }, [fromCurrencyAmount, fromCurrencySelect, toCurrencySelect]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchMinAmount = async () => {
       try {
         const res = await axiosInstance.get<MinAmount>(
           `/min-amount/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
@@ -59,7 +58,7 @@ export const ExchangeForm = () => {
       }
     };
 
-    fetchData();
+    fetchMinAmount();
   }, [fromCurrencySelect, toCurrencySelect]);
 
   const handleSwap = () => {
