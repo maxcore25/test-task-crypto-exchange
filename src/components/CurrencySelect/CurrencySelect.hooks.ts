@@ -24,10 +24,12 @@ export const useCurrencySelect = ({
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const selectRef = useClickOutside<HTMLInputElement>(() => {
+  const selectRef = useClickOutside<HTMLInputElement>(handleClose);
+
+  function handleClose() {
     setIsOpen(false);
     setSearch('');
-  });
+  }
 
   useEffect(() => {
     if (isError) setAmount('-');
@@ -63,6 +65,7 @@ export const useCurrencySelect = ({
     handleChange,
     handleClick,
     handleSelect,
+    handleClose,
     selectRef,
     isOpen,
     amount,

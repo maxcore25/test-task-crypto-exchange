@@ -38,6 +38,7 @@ export const CurrencySelect = ({
     handleChange,
     handleClick,
     handleSelect,
+    handleClose,
     selectRef,
     isOpen,
     amount,
@@ -79,7 +80,10 @@ export const CurrencySelect = ({
           className='w-full bg-transparent px-4 pb-[13px] pt-[14px] text-base font-normal leading-[23px] text-dark-gray outline-none'
         />
         {isOpen && (
-          <CloseButton className='absolute right-4 top-1/2 -translate-y-1/2' />
+          <CloseButton
+            onClick={handleClose}
+            className='absolute right-4 top-1/2 -translate-y-1/2'
+          />
         )}
         {!isOpen && (
           <CurrencySelectCoin
