@@ -60,6 +60,12 @@ export const ExchangeForm = () => {
     fetchData();
   }, [fromCurrencySelect, toCurrencySelect]);
 
+  const handleSwap = () => {
+    const tempCurrency = fromCurrencySelect;
+    setFromCurrencySelect(toCurrencySelect);
+    setToCurrencySelect(tempCurrency);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -75,7 +81,10 @@ export const ExchangeForm = () => {
           selectedCurrency={fromCurrencySelect}
           onCurrencyChange={setFromCurrencySelect}
         />
-        <SwapButton className='rotate-90 self-end lg:rotate-0 lg:self-auto' />
+        <SwapButton
+          className='rotate-90 self-end lg:rotate-0 lg:self-auto'
+          onClick={handleSwap}
+        />
         <CurrencySelect
           id='to'
           name='to'
