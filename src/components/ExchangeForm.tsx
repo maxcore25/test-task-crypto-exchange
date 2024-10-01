@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Button } from './Button';
 import { CurrencySelect } from './CurrencySelect';
 import { Input } from './Input';
@@ -16,6 +16,7 @@ export const ExchangeForm = () => {
   const [fromCurrencyMinAmount, setFromCurrencyMinAmount] = useState(0);
   const [toCurrencyAmount, setToCurrencyAmount] = useState<number | string>(0);
   const [error, setError] = useState<string | null>(null);
+  const [address, setAddress] = useState('');
 
   useEffect(() => {
     if (fromCurrencyAmount < fromCurrencyMinAmount) {
@@ -66,6 +67,10 @@ export const ExchangeForm = () => {
     setToCurrencySelect(tempCurrency);
   };
 
+  const handleChangeAddress = (e: ChangeEvent<HTMLInputElement>) => {
+    setAddress(e.target.value);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -104,7 +109,13 @@ export const ExchangeForm = () => {
           >
             Address
           </label>
-          <Input type='text' name='address' id='address' />
+          <Input
+            type='text'
+            name='address'
+            id='address'
+            value={address}
+            onChange={handleChangeAddress}
+          />
         </div>
         <div className='relative'>
           <Button type='submit' className='w-[205px]'>
