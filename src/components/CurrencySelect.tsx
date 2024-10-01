@@ -181,14 +181,18 @@ export type CurrencySelectItemProps = LiHTMLAttributes<HTMLLIElement> & {
   coin: Currency;
 };
 
-export const CurrencySelectItem = ({
-  coin,
-  ...props
-}: CurrencySelectItemProps) => {
+export const CurrencySelectItem = forwardRef<
+  HTMLLIElement,
+  CurrencySelectItemProps
+>(({ coin, className, ...props }, ref) => {
   return (
     <li
-      className='flex cursor-pointer items-center px-4 py-3 hover:bg-[#eaf1f7]'
+      className={cn(
+        'flex cursor-pointer items-center px-4 py-3 hover:bg-[#eaf1f7]',
+        className
+      )}
       title={coin.name}
+      ref={ref}
       {...props}
     >
       <img src={coin.image} alt={coin.name} width={20} height={20} />
@@ -200,4 +204,4 @@ export const CurrencySelectItem = ({
       </div>
     </li>
   );
-};
+});
