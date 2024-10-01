@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { SwapIcon } from './SwapIcon';
+import { SwapIcon } from '../SwapIcon';
 
 export type SwapButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
