@@ -1,50 +1,41 @@
-# React + TypeScript + Vite
+# test-task-crypto-exchange
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ТЗ
 
-Currently, two official plugins are available:
+Ссылка: https://telegra.ph/TZ-Frontend-dev-react-12-14
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Есть API: https://documenter.getpostman.com/view/8180765/SVfTPnM8?version=latest#intro
 
-## Expanding the ESLint configuration
+API key: в файле `.env.local`.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Из этого API использовать только методы:
 
-- Configure the top-level `parserOptions` property like this:
+- List of available currencies;
+- Minimal exchange amount;
+- Estimated exchange amount.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Нужно реализовать виджет для создания обмена (только фронт, реакт):
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Из API берется список всех валют (не использовать метод API get_all_pairs, делать виджет для всех возможных пар);
+2. В виджете можно выбрать левую и правую валюты;
+3. При выборе валют, выставлять в левом инпуте минимальную сумму обмена;
+4. В правый инпут считается и подставляется значение estimated для выбранных валют и суммы в левом инпуте;
+5. Если сумма меньше, чем минимальная, то в правый инпут пишется прочерк и выводится ошибка;
+6. Если для estimated или для min для выбранных валют API возвращает null, выводить ошибку this pair is disabled now.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Шрифт Arial
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Макет: https://www.figma.com/file/fzcnpN2Pm9YY8CIpWbP3NE/Frontend-Test?node-id=0%3A1
+
+Цвета:
+
+- brand color #137E6E
+- dark gray #282828
+- light gray #A7A7A7
+- background #F4F4F4
+
+Состояния кнопок, адаптив, расстояния — на свое усмотрение.
+
+Поддержка — последние версии основных браузеров.
+
+Дополнительно (необязательно): реализация поиска.
