@@ -10,6 +10,10 @@ export type Currency = {
   supportsFixedRate: boolean;
 };
 
+export type MinAmount = {
+  minAmount: number;
+};
+
 export type ExchangeState = { fromCurrency: string; toCurrency: string };
 
 export type ExchangeActions = {
