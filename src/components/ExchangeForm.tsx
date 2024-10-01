@@ -107,7 +107,7 @@ export const ExchangeForm = () => {
             htmlFor='address'
             className='text-base font-normal leading-[23px]'
           >
-            Address
+            Your {toCurrencySelect.name} address
           </label>
           <Input
             type='text'
