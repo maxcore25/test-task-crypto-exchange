@@ -12,7 +12,8 @@ export type CurrencySelectProps = {
   id?: string;
   name?: string;
   coins?: Currency[];
-  minAmount?: number;
+  minAmount?: number | string;
+  isError?: boolean;
 };
 
 export const CurrencySelect = ({
@@ -22,7 +23,8 @@ export const CurrencySelect = ({
   id,
   name,
   coins = testCoins,
-  minAmount = 0,
+  minAmount,
+  isError,
 }: CurrencySelectProps) => {
   const [amount, setAmount] = useState(String(minAmount));
   const [search, setSearch] = useState('');
@@ -34,8 +36,9 @@ export const CurrencySelect = ({
   });
 
   useEffect(() => {
+    if (isError) setAmount('-');
     setAmount(String(minAmount));
-  }, [minAmount, selectedCurrency]);
+  }, [minAmount, selectedCurrency, isError]);
 
   const filteredCoins = coins.filter(
     coin =>
@@ -44,7 +47,7 @@ export const CurrencySelect = ({
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isOpen) {
+    if (!isOpen && !isError) {
       setAmount(e.target.value);
       onAmountChange(Number.parseFloat(e.target.value));
     } else {
@@ -79,8 +82,7 @@ export const CurrencySelect = ({
           value={!isOpen ? amount : search}
           onChange={handleChange}
           ref={inputRef}
-          type={isOpen ? 'text' : 'number'}
-          min={0}
+          type={isOpen || isError ? 'text' : 'number'}
           className='w-full bg-transparent px-4 pb-[13px] pt-[14px] text-base font-normal leading-[23px] text-dark-gray outline-none'
         />
         {!isOpen && (
