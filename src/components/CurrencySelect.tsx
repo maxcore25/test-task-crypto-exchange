@@ -1,5 +1,11 @@
 import { ArrowDown } from './ArrowDown';
-import { LiHTMLAttributes, useEffect, useRef, useState } from 'react';
+import {
+  HTMLAttributes,
+  LiHTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { cn } from '@/lib/utils';
 import { testCoins } from '@/temp';
 import { useClickOutside } from '@/hooks';
@@ -112,7 +118,7 @@ export const CurrencySelect = ({
       </div>
 
       {isOpen && (
-        <ul className='absolute z-10 max-h-[300px] w-full overflow-hidden overflow-y-auto rounded-bl-[5px] rounded-br-[5px] border border-[#c1d9e5] border-t-transparent bg-[#f6f7f8]'>
+        <CurrencySelectPopover>
           {filteredCoins.map(coin => (
             <CurrencySelectItem
               key={coin.ticker}
@@ -120,9 +126,25 @@ export const CurrencySelect = ({
               onClick={() => handleSelect(coin)}
             />
           ))}
-        </ul>
+        </CurrencySelectPopover>
       )}
     </div>
+  );
+};
+
+export type CurrencySelectPopoverProps = HTMLAttributes<HTMLUListElement>;
+
+export const CurrencySelectPopover = ({
+  children,
+  ...props
+}: CurrencySelectPopoverProps) => {
+  return (
+    <ul
+      className='absolute z-10 max-h-[300px] w-full overflow-hidden overflow-y-auto rounded-bl-[5px] rounded-br-[5px] border border-[#c1d9e5] border-t-transparent bg-[#f6f7f8]'
+      {...props}
+    >
+      {children}
+    </ul>
   );
 };
 
