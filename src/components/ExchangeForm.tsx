@@ -34,12 +34,6 @@ export const ExchangeForm = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(
-        'Sending request for:',
-        fromCurrencySelect.ticker,
-        toCurrencySelect.ticker
-      );
-
       try {
         const res = await axiosInstance.get<MinAmount>(
           `/min-amount/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
