@@ -1,33 +1,39 @@
 import { ArrowDown } from './ArrowDown';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { btcCoin, testCoins } from '@/temp';
+import { testCoins } from '@/temp';
 import { useClickOutside } from '@/hooks';
 import { Currency } from '@/types';
 
 export type CurrencySelectProps = {
+  selectedCurrency: Currency;
+  onCurrencyChange: (currency: Currency) => void;
   id?: string;
   name?: string;
   coins?: Currency[];
-  defaultCurrency?: Currency;
+  minAmount?: number;
 };
 
 export const CurrencySelect = ({
+  selectedCurrency,
+  onCurrencyChange,
   id,
   name,
   coins = testCoins,
-  defaultCurrency = btcCoin,
+  minAmount = 0,
 }: CurrencySelectProps) => {
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(String(minAmount));
   const [search, setSearch] = useState('');
-  const [selectedCurrency, setSelectedCurrency] =
-    useState<Currency>(defaultCurrency);
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const selectRef = useClickOutside<HTMLInputElement>(() => {
     setIsOpen(false);
     setSearch('');
   });
+
+  useEffect(() => {
+    setAmount(String(minAmount));
+  }, [minAmount]);
 
   const filteredCoins = coins.filter(
     coin =>
@@ -49,7 +55,7 @@ export const CurrencySelect = ({
   };
 
   const handleSelect = (currency: Currency) => {
-    setSelectedCurrency(currency);
+    onCurrencyChange(currency);
     setIsOpen(false);
   };
 
