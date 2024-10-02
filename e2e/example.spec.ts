@@ -1,18 +1,26 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test.describe('Crypto Exchange', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:5173');
+  });
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+  test('should have metadata', async ({ page }) => {
+    await expect(page).toHaveTitle(/Test Task - Crypto Exchange/);
+  });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  test('should have heading and form', async ({ page }) => {
+    await expect(
+      page.getByRole('heading', { name: 'Crypto Exchange' })
+    ).toBeVisible();
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+    await expect(page.getByRole('form')).toBeVisible();
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+    const inputs = await page.$$('input');
+    expect(inputs.length).toBe(3);
+
+    await expect(
+      page.getByRole('button', { name: 'Exchange'.toUpperCase() })
+    ).toBeVisible();
+  });
 });
