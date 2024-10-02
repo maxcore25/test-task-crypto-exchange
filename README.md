@@ -35,6 +35,16 @@ docker-compose up -d --build
 
 2. Перейдите по ссылке: http://localhost
 
+## Storybook
+
+1. Запустите Storybook командой
+
+```bash
+pnpm sb
+```
+
+2. Перейдите по ссылке: http://localhost:6006
+
 ## ТЗ
 
 Ссылка: https://telegra.ph/TZ-Frontend-dev-react-12-14
