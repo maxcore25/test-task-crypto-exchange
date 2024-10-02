@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      args:
+        - VITE_API_KEY=${VITE_API_KEY}
+    ports:
+      - '80:80'
+    env_file:
+      - .env
+    environment:
+      VITE_API_KEY: ${VITE_API_KEY}
