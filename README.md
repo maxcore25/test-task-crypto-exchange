@@ -61,6 +61,42 @@ pnpm test:ui
 
 3. Перейдите по ссылке: [http://localhost:51204/\_\_vitest\_\_/#/](http://localhost:51204/__vitest__/#/)
 
+## E2E-тесты
+
+1. Запустите e2e-тесты в терминале командой
+
+```bash
+pnpm test:e2e
+```
+
+2. Запустите e2e-тесты в веб-интерфейсе командой
+
+```bash
+pnpm test:e2e-ui
+```
+
+## Playwright команды
+
+```bash
+# Runs the end-to-end tests
+pnpm exec playwright test
+
+# Starts the interactive UI mode
+pnpm exec playwright test --ui
+
+# Runs the tests only on Desktop Chrome
+pnpm exec playwright test --project=chromium
+
+# Runs the tests in a specific file
+pnpm exec playwright test example
+
+# Runs the tests in debug mode
+pnpm exec playwright test --debug
+
+# Auto generate tests with Codegen
+pnpm exec playwright codegen
+```
+
 ## ТЗ
 
 Ссылка: https://telegra.ph/TZ-Frontend-dev-react-12-14
@@ -100,3 +136,7 @@ API key: в файле `.env`.
 Поддержка — последние версии основных браузеров.
 
 Дополнительно (необязательно): реализация поиска.
+
+```
+
+```

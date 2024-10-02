@@ -79,3 +79,7 @@ __snapshots__
 # Storybook
 .storybook
 stories
+
+# e2e test
+e2e
+tests-examples

@@ -25,7 +25,7 @@ export const ExchangeForm = () => {
   } = useExchangeForm();
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} aria-label='form'>
       <div className='mb-12 flex flex-col gap-4 lg:mb-8 lg:flex-row lg:items-center lg:gap-7'>
         <CurrencySelect
           id='from'
