@@ -75,3 +75,7 @@ README.md
 __tests__
 __mocks__
 __snapshots__
+
+# Storybook
+.storybook
+stories
