@@ -10,6 +10,7 @@ import { testCoins } from '@/temp';
 import { Currency } from '@/types';
 import { useCurrencySelect } from './CurrencySelect.hooks';
 import { CloseButton } from '../CloseButton';
+import { FixedSizeList as List } from 'react-window';
 
 export type CurrencySelectProps = {
   selectedCurrency: Currency;
@@ -93,15 +94,27 @@ export const CurrencySelect = ({
         )}
       </div>
 
-      {isOpen && (
+      {isOpen && filteredCoins && (
         <CurrencySelectPopover>
-          {filteredCoins?.map(coin => (
-            <CurrencySelectItem
-              key={coin.ticker}
-              coin={coin}
-              onClick={() => handleSelect(coin)}
-            />
-          ))}
+          <List
+            height={300}
+            itemCount={filteredCoins.length}
+            itemSize={47}
+            width={440}
+          >
+            {({ index, style }) => {
+              const coin = filteredCoins[index];
+
+              return (
+                <CurrencySelectItem
+                  key={coin.ticker}
+                  style={style}
+                  coin={coin}
+                  onClick={() => handleSelect(coin)}
+                />
+              );
+            }}
+          </List>
         </CurrencySelectPopover>
       )}
     </div>
@@ -150,7 +163,7 @@ export const CurrencySelectPopover = forwardRef<
   return (
     <ul
       className={cn(
-        'absolute z-10 max-h-[300px] w-full overflow-hidden overflow-y-auto rounded-bl-[5px] rounded-br-[5px] border border-[#c1d9e5] border-t-transparent bg-[#f6f7f8]',
+        'absolute z-10 max-h-[300px] w-full overflow-hidden rounded-bl-[5px] rounded-br-[5px] border border-[#c1d9e5] border-t-transparent bg-[#f6f7f8]',
         className
       )}
       ref={ref}
