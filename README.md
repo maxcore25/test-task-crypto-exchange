@@ -45,6 +45,22 @@ pnpm sb
 
 2. Перейдите по ссылке: http://localhost:6006
 
+## Тесты
+
+1. Запустите тесты в терминале командой
+
+```bash
+pnpm test
+```
+
+2. Запустите тесты в веб-интерфейсе командой
+
+```bash
+pnpm test:ui
+```
+
+3. Перейдите по ссылке: http://localhost:51204/\_\_vitest\_\_/#/
+
 ## ТЗ
 
 Ссылка: https://telegra.ph/TZ-Frontend-dev-react-12-14
