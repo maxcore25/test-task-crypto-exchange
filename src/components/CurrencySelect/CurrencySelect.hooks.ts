@@ -58,7 +58,7 @@ export const useCurrencySelect = ({
 
   const handleSelect = (currency: Currency) => {
     onCurrencyChange(currency);
-    setIsOpen(false);
+    handleClose();
   };
 
   return {
