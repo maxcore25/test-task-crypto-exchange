@@ -4,10 +4,10 @@
 
 ## Инструкция
 
-1. Скопируйте файл `.env.example` и переименуйте в `.env.local`
+1. Скопируйте файл `.env.example` и переименуйте в `.env`
 1. Перейдите по ссылке ТЗ: https://telegra.ph/TZ-Frontend-dev-react-12-14
 1. Скопируйте API key
-1. Вставьте скопированный API key в переменную `VITE_API_KEY` в файле `.env.local`
+1. Вставьте скопированный API key в переменную `VITE_API_KEY` в файле `.env`
 1. Запустите проект командой `pnpm dev`
 
 ## ТЗ
@@ -16,7 +16,7 @@
 
 Есть API: https://documenter.getpostman.com/view/8180765/SVfTPnM8?version=latest#intro
 
-API key: в файле `.env.local`.
+API key: в файле `.env`.
 
 Из этого API использовать только методы:
 
