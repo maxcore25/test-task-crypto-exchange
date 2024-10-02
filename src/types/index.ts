@@ -24,11 +24,3 @@ export type ErrorMessage = {
   error: string;
   message: string;
 };
-
-export type ExchangeState = { fromCurrency: string; toCurrency: string };
-
-export type ExchangeActions = {
-  swap: () => void;
-};
-
-export type ExchangeStore = ExchangeState & ExchangeActions;
