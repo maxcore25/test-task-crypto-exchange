@@ -59,7 +59,7 @@ pnpm test
 pnpm test:ui
 ```
 
-3. Перейдите по ссылке: http://localhost:51204/\_\_vitest\_\_/#/
+3. Перейдите по ссылке: [http://localhost:51204/\_\_vitest\_\_/#/](http://localhost:51204/__vitest__/#/)
 
 ## ТЗ
 
