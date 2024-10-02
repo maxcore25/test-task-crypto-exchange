@@ -9,4 +9,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  define: {
+    VITE_API_KEY: process.env.VITE_API_KEY,
+  },
 });
