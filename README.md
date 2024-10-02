@@ -8,7 +8,32 @@
 1. Перейдите по ссылке ТЗ: https://telegra.ph/TZ-Frontend-dev-react-12-14
 1. Скопируйте API key
 1. Вставьте скопированный API key в переменную `VITE_API_KEY` в файле `.env`
-1. Запустите проект командой `pnpm dev`
+
+## Запуск (без Docker)
+
+1. Скачайте зависимости
+
+```bash
+pnpm i
+```
+
+2. Запустите проект командой
+
+```bash
+pnpm dev
+```
+
+3. Перейдите по ссылке: http://localhost:5173
+
+## Запуск (с Docker)
+
+1. Запустите проект командой
+
+```bash
+docker-compose up -d --build
+```
+
+2. Перейдите по ссылке: http://localhost
 
 ## ТЗ
 
