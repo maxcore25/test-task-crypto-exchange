@@ -35,16 +35,19 @@ export const useExchangeForm = () => {
   }, []);
 
   useEffect(() => {
-    if (!!error || fromCurrencyAmount < fromCurrencyMinAmount) {
-      setToCurrencyAmount('-');
-    }
-  }, [fromCurrencyAmount, fromCurrencyMinAmount, error]);
-
-  useEffect(() => {
     const fetchExchangeAmount = async () => {
       try {
         // if (debouncedFromCurrencyAmount <= 0) return;
-        if (fromCurrencyAmount <= 0) return;
+        // if (fromCurrencyAmount <= 0) return;
+
+        if (
+          fromCurrencyAmount <= 0 ||
+          fromCurrencyAmount < fromCurrencyMinAmount
+        ) {
+          setError('Out of min amount');
+          setToCurrencyAmount('-');
+          return;
+        }
 
         setIsToCurrencyLoading(true);
 
