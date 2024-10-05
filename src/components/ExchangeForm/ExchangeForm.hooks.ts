@@ -35,6 +35,30 @@ export const useExchangeForm = () => {
   }, []);
 
   useEffect(() => {
+    const fetchMinAmount = async () => {
+      try {
+        setIsFromCurrencyLoading(true);
+        setIsToCurrencyLoading(true);
+
+        const res = await axiosInstance.get<MinAmount>(
+          `/min-amount/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
+        );
+
+        setError(null);
+        setFromCurrencyAmount(res.data.minAmount);
+        setFromCurrencyMinAmount(res.data.minAmount);
+      } catch (error) {
+        console.error('Error fetching minimum amount:', error);
+      } finally {
+        setIsFromCurrencyLoading(false);
+        setIsToCurrencyLoading(false);
+      }
+    };
+
+    fetchMinAmount();
+  }, [fromCurrencySelect, toCurrencySelect]);
+
+  useEffect(() => {
     const fetchExchangeAmount = async () => {
       try {
         // if (debouncedFromCurrencyAmount <= 0) return;
@@ -75,30 +99,6 @@ export const useExchangeForm = () => {
     toCurrencySelect,
     // debouncedFromCurrencyAmount,
   ]);
-
-  useEffect(() => {
-    const fetchMinAmount = async () => {
-      try {
-        setIsFromCurrencyLoading(true);
-        setIsToCurrencyLoading(true);
-
-        const res = await axiosInstance.get<MinAmount>(
-          `/min-amount/${fromCurrencySelect.ticker}_${toCurrencySelect.ticker}?api_key=${import.meta.env.VITE_API_KEY}`
-        );
-
-        setError(null);
-        setFromCurrencyAmount(res.data.minAmount);
-        setFromCurrencyMinAmount(res.data.minAmount);
-      } catch (error) {
-        console.error('Error fetching minimum amount:', error);
-      } finally {
-        setIsFromCurrencyLoading(false);
-        setIsToCurrencyLoading(false);
-      }
-    };
-
-    fetchMinAmount();
-  }, [fromCurrencySelect, toCurrencySelect]);
 
   const handleSwap = () => {
     const tempCurrency = fromCurrencySelect;
